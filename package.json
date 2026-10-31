@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Calendario de Post - Adrian Reyes Creativo",
   "type": "module",
+  "main": "index.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "dev": "node --watch backend/server.js"
+    "start": "node index.js",
+    "dev": "node --watch index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

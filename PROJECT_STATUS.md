@@ -5,7 +5,7 @@
 ---
 
 ## 1. Resumen General
-Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel**.
+Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel** bajo el estándar oficial de Vercel Express.
 
 ---
 
@@ -13,8 +13,9 @@ Sistema de gestión y aprobación de publicaciones para redes sociales con roles
 - **GitHub:** [https://github.com/CA038/calendario-de-post](https://github.com/CA038/calendario-de-post)
 - **Vercel URL:** [https://calendario-de-post.vercel.app](https://calendario-de-post.vercel.app)
 - **Rama principal:** `main`
-- **Frontend Estático:** Archivos servidos directamente en la raíz (`index.html`, `css/`, `js/`) por el CDN de Vercel.
-- **Backend Serverless:** Manejado en `api/index.js` mediante Express con soporte dual de rutas (`/api/*` y `/*`).
+- **Rutas Estáticas:** Servidas directamente desde CDN de Vercel (`index.html`, `css/`, `js/`).
+- **Rutas API:** Despachadas a `index.js` mediante `@vercel/node`.
+- **Autenticación Git:** Clave SSH segura (`ed25519`) activa.
 
 ---
 
@@ -39,7 +40,7 @@ Sistema de gestión y aprobación de publicaciones para redes sociales con roles
 ---
 
 ## 4. Estado Actual y Verificación
-- [x] Estructura estática en la raíz para servir index.html directamente desde la CDN de Vercel.
-- [x] URL de Google Sheets integrada en el backend para auto-conexión.
+- [x] Arquitectura oficial Vercel configurada (`index.js` + `builds` + `routes` en `vercel.json`).
 - [x] Despliegue automático en Vercel tras cada `git push`.
-- [x] Verificación de código sin romper dependencias y con menos de 1,000 líneas por archivo.
+- [x] Conexión en vivo con Google Sheets verificada (`Posts`, `Users`, `Clients`, `Settings`).
+- [x] Todos los archivos cumplen la regla de límite (< 1,000 líneas).
