@@ -1,11 +1,11 @@
 # Estado del Proyecto: Calendario de Post
 **Cliente / Marca:** Adrian Reyes Creativo  
-**Última actualización:** 2026-10-30
+**Última actualización:** 2026-10-31
 
 ---
 
 ## 1. Resumen General
-Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel** como sitio estático puro con backend serverless desacoplado.
+Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel**.
 
 ---
 
@@ -14,7 +14,7 @@ Sistema de gestión y aprobación de publicaciones para redes sociales con roles
 - **Vercel URL:** [https://calendario-de-post.vercel.app](https://calendario-de-post.vercel.app)
 - **Rama principal:** `main`
 - **Frontend:** Estático puro en raíz (`index.html`, `css/`, `js/`), servido por Vercel Edge CDN.
-- **Backend Serverless:** Manejado en `api/[...path].js` y `api/index.js` mediante Express con `express.static` condicionado a desarrollo local.
+- **Backend Serverless:** Manejado en `api/[...path].js` y `api/index.js` con dependencias fijadas mediante `package-lock.json`.
 
 ---
 
@@ -39,7 +39,7 @@ Sistema de gestión y aprobación de publicaciones para redes sociales con roles
 ---
 
 ## 4. Estado Actual y Verificación
-- [x] Desactivado `express.static` en entorno Vercel para prevenir errores de headers en Serverless.
-- [x] Configuración estática nativa en raíz para Vercel CDN.
+- [x] Generado `package-lock.json` en la raíz para instalación determinista de dependencias en Vercel.
+- [x] Despliegue automático en Vercel tras cada `git push`.
 - [x] Conexión en vivo con Google Sheets verificada (`Posts`, `Users`, `Clients`, `Settings`).
 - [x] Todos los archivos cumplen la regla de límite (< 1,000 líneas).
