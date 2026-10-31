@@ -51,9 +51,9 @@ export function createApp() {
   app.use('/api/posts', createPostRoutes(postController));
   app.use('/api/auth', createAuthRoutes(authController));
 
-  // Servir estáticos del frontend para facilitar el uso integrado
-  const frontendPath = path.resolve(__dirname, '../../frontend');
-  app.use(express.static(frontendPath));
+  // Servir estáticos del frontend desde la carpeta public
+  const publicPath = path.resolve(__dirname, '../../public');
+  app.use(express.static(publicPath));
 
   app.get('/health', (req, res) => {
     res.json({ status: 'ok', time: new Date().toISOString() });
