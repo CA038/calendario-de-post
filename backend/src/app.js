@@ -47,16 +47,22 @@ export function createApp() {
     next();
   });
 
-  // Rutas API
-  app.use('/api/posts', createPostRoutes(postController));
-  app.use('/api/auth', createAuthRoutes(authController));
+  // Rutas API (soporta con o sin prefijo /api)
+  app.use(['/api/posts', '/posts'], createPostRoutes(postController));
+  app.use(['/api/auth', '/auth'], createAuthRoutes(authController));
 
-  // Servir estáticos del frontend desde la carpeta public
-  const publicPath = path.resolve(__dirname, '../../public');
-  app.use(express.static(publicPath));
+  // Servir estáticos en desarrollo local desde la raíz
+  const staticPath = path.resolve(__dirname, '../../');
+  app.use(express.static(staticPath));
 
-  app.get('/health', (req, res) => {
+  app.get(['/api/health', '/health'], (req, res) => {
     res.json({ status: 'ok', time: new Date().toISOString() });
+  });
+
+  // Manejador global de errores para Serverless
+  app.use((err, req, res, next) => {
+    console.error('API Error:', err);
+    res.status(500).json({ success: false, message: err.message || 'Error interno del servidor' });
   });
 
   return app;

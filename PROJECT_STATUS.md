@@ -5,16 +5,16 @@
 ---
 
 ## 1. Resumen General
-Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel** sin necesidad de variables manuales.
+Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel**.
 
 ---
 
 ## 2. Repositorio Remoto y Despliegue
 - **GitHub:** [https://github.com/CA038/calendario-de-post](https://github.com/CA038/calendario-de-post)
+- **Vercel URL:** [https://calendario-de-post.vercel.app](https://calendario-de-post.vercel.app)
 - **Rama principal:** `main`
-- **Frontend Estático:** Servido directamente desde `public/` (Vercel CDN).
-- **Backend Serverless:** Manejado en `api/index.js` mediante Express con URL de Google Sheets configurada por defecto.
-- **Autenticación Git:** Clave SSH segura (`ed25519`) activa.
+- **Frontend Estático:** Archivos servidos directamente en la raíz (`index.html`, `css/`, `js/`) por el CDN de Vercel.
+- **Backend Serverless:** Manejado en `api/index.js` mediante Express con soporte dual de rutas (`/api/*` y `/*`).
 
 ---
 
@@ -39,7 +39,7 @@ Sistema de gestión y aprobación de publicaciones para redes sociales con roles
 ---
 
 ## 4. Estado Actual y Verificación
-- [x] URL de Google Sheets integrada en el backend para auto-conexión en Vercel.
+- [x] Estructura estática en la raíz para servir index.html directamente desde la CDN de Vercel.
+- [x] URL de Google Sheets integrada en el backend para auto-conexión.
 - [x] Despliegue automático en Vercel tras cada `git push`.
-- [x] Conexión en vivo con Google Sheets verificada (`Posts`, `Users`, `Clients`, `Settings`).
-- [x] Todos los archivos cumplen la regla de límite (< 1,000 líneas).
+- [x] Verificación de código sin romper dependencias y con menos de 1,000 líneas por archivo.
