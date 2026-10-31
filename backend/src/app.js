@@ -51,9 +51,11 @@ export function createApp() {
   app.use(['/api/posts', '/posts'], createPostRoutes(postController));
   app.use(['/api/auth', '/auth'], createAuthRoutes(authController));
 
-  // Servir estáticos en desarrollo local desde la raíz
-  const staticPath = path.resolve(__dirname, '../../');
-  app.use(express.static(staticPath));
+  // Servir estáticos en desarrollo local (fuera de Vercel)
+  if (!process.env.VERCEL) {
+    const staticPath = path.resolve(__dirname, '../../');
+    app.use(express.static(staticPath));
+  }
 
   app.get(['/api/health', '/health'], (req, res) => {
     res.json({ status: 'ok', time: new Date().toISOString() });
