@@ -5,15 +5,15 @@
 ---
 
 ## 1. Resumen General
-Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel**.
+Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel** sin necesidad de variables manuales.
 
 ---
 
 ## 2. Repositorio Remoto y Despliegue
 - **GitHub:** [https://github.com/CA038/calendario-de-post](https://github.com/CA038/calendario-de-post)
 - **Rama principal:** `main`
-- **Frontend Estático:** Servido directamente desde `public/` (estándar oficial de Vercel CDN).
-- **Backend Serverless:** Manejado en `api/index.js` mediante Express.
+- **Frontend Estático:** Servido directamente desde `public/` (Vercel CDN).
+- **Backend Serverless:** Manejado en `api/index.js` mediante Express con URL de Google Sheets configurada por defecto.
 - **Autenticación Git:** Clave SSH segura (`ed25519`) activa.
 
 ---
@@ -39,7 +39,7 @@ Sistema de gestión y aprobación de publicaciones para redes sociales con roles
 ---
 
 ## 4. Estado Actual y Verificación
-- [x] Corrección de estructura de carpetas a `public/` para resolver error 500 en Vercel.
-- [x] Repositorio Git sincronizado con GitHub (`origin/main`).
+- [x] URL de Google Sheets integrada en el backend para auto-conexión en Vercel.
+- [x] Despliegue automático en Vercel tras cada `git push`.
 - [x] Conexión en vivo con Google Sheets verificada (`Posts`, `Users`, `Clients`, `Settings`).
 - [x] Todos los archivos cumplen la regla de límite (< 1,000 líneas).
