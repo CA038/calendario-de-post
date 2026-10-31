@@ -5,14 +5,15 @@
 ---
 
 ## 1. Resumen General
-Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)** y respaldado en **GitHub**.
+Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y preparado para despliegue en **Vercel**.
 
 ---
 
-## 2. Repositorio Remoto
+## 2. Repositorio Remoto y Despliegue
 - **GitHub:** [https://github.com/CA038/calendario-de-post](https://github.com/CA038/calendario-de-post)
 - **Rama principal:** `main`
-- **Autenticación:** Clave SSH segura (`ed25519`) configurada y vinculada a tu Mac.
+- **Despliegue:** Configurado para Vercel Serverless mediante `vercel.json` y `api/index.js`.
+- **Autenticación Git:** Clave SSH segura (`ed25519`) activa.
 
 ---
 
@@ -38,17 +39,17 @@ Sistema de gestión y aprobación de publicaciones para redes sociales con roles
 
 ## 4. Arquitectura y Tecnologías
 - **Frontend:** HTML5, Vanilla CSS (estética lila/violeta pastel, layout dos columnas con menú lateral sticky, tarjetas redondeadas de 20-26px), JavaScript modular, Lucide Icons (línea).
-- **Backend:** Node.js con Express, arquitectura desacoplada bajo principios SOLID:
-  - Rutas / API (`src/routes/`)
-  - Controladores (`src/controllers/`)
-  - Servicios de Negocio (`src/services/`)
-  - Repositorio Google Sheets (`src/repositories/GoogleSheetsRepository.js`).
+- **Backend:** Node.js con Express y funciones serverless:
+  - Rutas / API (`backend/src/routes/`, `api/index.js`)
+  - Controladores (`backend/src/controllers/`)
+  - Servicios de Negocio (`backend/src/services/`)
+  - Repositorio Google Sheets (`backend/src/repositories/GoogleSheetsRepository.js`).
 - **Base de Datos:** Google Sheets activo mediante Apps Script Web App.
 
 ---
 
 ## 5. Estado Actual y Verificación
-- [x] Repositorio Git inicializado y sincronizado con GitHub (`origin/main`).
+- [x] Archivo `vercel.json` y `api/index.js` configurados para despliegue serverless.
+- [x] Repositorio Git sincronizado con GitHub (`origin/main`).
 - [x] Conexión en vivo con Google Sheets verificada (`Posts`, `Users`, `Clients`, `Settings`).
-- [x] Menú lateral implementado e integrado con apertura de modales y cambio de pestañas.
 - [x] Todos los archivos cumplen la regla de límite (< 1,000 líneas).

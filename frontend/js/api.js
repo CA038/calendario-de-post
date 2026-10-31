@@ -1,5 +1,6 @@
 // Cliente API para comunicarse con el Backend
-const API_BASE_URL = (window.location.protocol === 'file:' || !window.location.origin.includes(':3001'))
+const isLocalCustomPort = window.location.hostname === 'localhost' && window.location.port !== '3001';
+const API_BASE_URL = (window.location.protocol === 'file:' || isLocalCustomPort)
   ? 'http://localhost:3001'
   : '';
 
