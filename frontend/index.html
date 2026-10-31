@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario de Post | Adrian Reyes Creativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons (Línea) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- PANTALLA DE LOGIN -->
+  <div id="loginScreen" class="login-wrapper">
+    <div class="login-card">
+      <div class="brand-header">
+        <div class="brand-logo-text">
+          <span class="logo-bold">ADRIAN</span>
+          <span class="logo-box">REYES</span>
+        </div>
+        <p class="brand-sub">C R E A T I V O</p>
+      </div>
+
+      <div class="login-badge">
+        <i data-lucide="calendar"></i>
+        <span>Calendario de Contenidos</span>
+      </div>
+
+      <h2 class="login-title">Iniciar Sesión</h2>
+      <p class="login-desc">Ingresa tus credenciales para acceder al calendario</p>
+
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="username">Usuario</label>
+          <div class="input-icon-wrapper">
+            <i data-lucide="user"></i>
+            <input type="text" id="username" placeholder="Ingresa tu usuario" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <div class="input-icon-wrapper">
+            <i data-lucide="lock"></i>
+            <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+        </div>
+
+        <div id="loginError" class="error-banner" style="display: none;"></div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          <span>Acceder</span>
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </form>
+
+      <!-- Accesos Rápidos de Prueba -->
+      <div class="quick-access">
+        <span class="quick-access-label">Acceso de prueba rápido:</span>
+        <div class="quick-btns">
+          <button type="button" class="btn-demo" data-user="admin" data-pass="123">Superadmin</button>
+          <button type="button" class="btn-demo" data-user="operario1" data-pass="123">Operario</button>
+          <button type="button" class="btn-demo" data-user="cliente1" data-pass="123">Cliente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APLICACIÓN PRINCIPAL CON MENÚ LATERAL -->
+  <div id="appScreen" class="app-layout" style="display: none;">
+    
+    <!-- MENÚ LATERAL (SIDEBAR) -->
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo-text small">
+          <span class="logo-bold">ADRIAN</span>
+          <span class="logo-box">REYES</span>
+        </div>
+        <p class="brand-sub">C R E A T I V O</p>
+        <span class="sidebar-brand-badge">Post Studio</span>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="menu-label">VISTAS</div>
+        <button type="button" class="sidebar-btn active" id="sideNavCalendar">
+          <i data-lucide="calendar"></i>
+          <span>Calendario</span>
+        </button>
+
+        <div class="menu-label admin-action">CREAR CONTENIDO</div>
+        <button type="button" class="sidebar-btn sidebar-btn-primary admin-action" id="sideNavNewPost">
+          <i data-lucide="plus-circle"></i>
+          <span>Nuevo Post</span>
+        </button>
+
+        <div class="menu-label admin-action">GESTIÓN Y ROLES</div>
+        <button type="button" class="sidebar-btn admin-action" id="sideNavClients">
+          <i data-lucide="briefcase"></i>
+          <span>Crear Clientes</span>
+        </button>
+
+        <button type="button" class="sidebar-btn admin-action" id="sideNavUsers">
+          <i data-lucide="user-plus"></i>
+          <span>Crear Usuarios</span>
+        </button>
+
+        <button type="button" class="sidebar-btn admin-action" id="sideNavAssignments">
+          <i data-lucide="clipboard-check"></i>
+          <span>Asignar Tareas</span>
+        </button>
+      </nav>
+
+      <!-- Pie del Menú Lateral -->
+      <div class="sidebar-footer">
+        <div class="sidebar-user-card">
+          <div class="user-avatar" id="sideUserAvatar">A</div>
+          <div class="user-info">
+            <span id="sideUserName" class="user-name">Usuario</span>
+            <span id="sideUserRole" class="user-role-badge">Superadmin</span>
+          </div>
+        </div>
+        <button id="sideLogoutBtn" class="sidebar-logout-btn" title="Cerrar sesión">
+          <i data-lucide="log-out"></i>
+          <span>Salir</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="app-main-content">
+      <!-- TOPBAR -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <!-- Selector de Cliente -->
+          <div id="clientSelectorWrap" class="client-pill-wrapper">
+            <i data-lucide="briefcase"></i>
+            <label for="clientSelect" style="display:none;">Cliente</label>
+            <select id="clientSelect" class="client-select"></select>
+          </div>
+
+          <!-- Navegación de Mes -->
+          <div class="month-navigator">
+            <button id="prevMonthBtn" class="nav-btn" aria-label="Mes anterior">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <span id="currentMonthLabel" class="current-month-text">Noviembre 2026</span>
+            <button id="nextMonthBtn" class="nav-btn" aria-label="Mes siguiente">
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Botón Rápido Nuevo Post -->
+          <button id="newPostBtn" class="btn btn-primary btn-pill admin-action">
+            <i data-lucide="plus"></i>
+            <span>Nuevo Post</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- BANNER DE KPIS Y META DE POSTS -->
+      <section class="kpi-banner">
+        <div class="kpi-card target-card">
+          <div class="kpi-icon"><i data-lucide="target"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-label">Meta del Mes</span>
+            <div class="target-edit-wrapper">
+              <span id="kpiTargetVal" class="kpi-value">0</span>
+              <button id="editTargetBtn" class="btn-icon-link" title="Editar meta mensual">
+                <i data-lucide="edit-3"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-card remaining-card">
+          <div class="kpi-icon warning"><i data-lucide="clock"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-label">Posts Faltantes</span>
+            <span id="kpiRemainingVal" class="kpi-value highlight-warning">0</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon success"><i data-lucide="check-circle-2"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-label">Aprobados</span>
+            <span id="kpiApprovedVal" class="kpi-value highlight-success">0</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon info"><i data-lucide="calendar-check"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-label">Programados</span>
+            <span id="kpiScheduledVal" class="kpi-value">0</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon danger"><i data-lucide="alert-circle"></i></div>
+          <div class="kpi-content">
+            <span class="kpi-label">Rechazados</span>
+            <span id="kpiRejectedVal" class="kpi-value highlight-danger">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- GRID DEL CALENDARIO -->
+      <main class="calendar-section">
+        <div class="calendar-weekdays">
+          <div>Lun</div>
+          <div>Mar</div>
+          <div>Mié</div>
+          <div>Jue</div>
+          <div>Vie</div>
+          <div>Sáb</div>
+          <div>Dom</div>
+        </div>
+        <div id="calendarGrid" class="calendar-grid">
+          <!-- Render dinámico desde calendar.js -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL: CREAR/PROGRAMAR POST -->
+  <div id="postModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Programar Nuevo Post</h3>
+        <button type="button" class="modal-close" data-close="postModal"><i data-lucide="x"></i></button>
+      </div>
+      <form id="postForm" class="modal-form">
+        <div class="form-group">
+          <label for="postClient">Cliente Asignado</label>
+          <select id="postClient" required class="form-input"></select>
+        </div>
+
+        <div class="form-group">
+          <label for="postTitle">Título / Concepto</label>
+          <input type="text" id="postTitle" required class="form-input" placeholder="Ej. Promoción de Fin de Semana">
+        </div>
+
+        <div class="form-group">
+          <label for="postCaption">Copywriting / Descripción</label>
+          <textarea id="postCaption" rows="3" class="form-input" placeholder="Escribe el texto que acompañará el post..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="postMediaType">Tipo de Multimedia</label>
+            <select id="postMediaType" class="form-input">
+              <option value="image">Una Imagen</option>
+              <option value="gallery">Galería de Imágenes</option>
+              <option value="video">Video / Reel</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="postDate">Fecha y Hora</label>
+            <input type="datetime-local" id="postDate" required class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="postMediaUrls">URL(s) de Multimedia (separadas por coma)</label>
+          <input type="text" id="postMediaUrls" class="form-input" placeholder="https://ejemplo.com/foto1.jpg, https://...">
+          <small class="form-hint">Puedes pegar enlaces directos de imágenes o videos.</small>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close="postModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="calendar-plus"></i>
+            <span>Programar Post</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: VER DETALLE / APROBAR O RECHAZAR POST -->
+  <div id="detailModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card detail-card">
+      <div class="modal-header">
+        <div class="detail-header-left">
+          <span id="detailStatusBadge" class="status-badge">Pendiente</span>
+          <span id="detailDate" class="detail-date">5 Nov 2026, 15:00</span>
+        </div>
+        <button type="button" class="modal-close" data-close="detailModal"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="detail-body">
+        <h3 id="detailTitle" class="detail-post-title">Título del Post</h3>
+        <p id="detailCaption" class="detail-post-caption">Copy del post...</p>
+
+        <!-- Multimedia Preview -->
+        <div id="detailMediaContainer" class="detail-media-container"></div>
+
+        <!-- Alerta de rechazo con retroalimentación del cliente -->
+        <div id="detailRejectionBox" class="rejection-box" style="display: none;">
+          <div class="rejection-header">
+            <i data-lucide="message-square-warning"></i>
+            <strong>Motivo del Rechazo (Comentario del Cliente):</strong>
+          </div>
+          <p id="detailRejectionText" class="rejection-text"></p>
+        </div>
+
+        <!-- Formulario para ingresar motivo si se rechaza -->
+        <div id="rejectionInputSection" class="rejection-input-section" style="display: none;">
+          <label for="rejectionReasonInput">Escribe el motivo del rechazo:</label>
+          <textarea id="rejectionReasonInput" rows="2" class="form-input" placeholder="Ej. Cambiar el color del banner o corregir el copy..."></textarea>
+          <div class="rejection-actions">
+            <button id="cancelRejectBtn" class="btn btn-secondary btn-sm">Cancelar</button>
+            <button id="confirmRejectBtn" class="btn btn-danger btn-sm">
+              <i data-lucide="x-circle"></i> Confirmar Rechazo
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-footer" id="detailActionButtons">
+        <button id="approvePostBtn" class="btn btn-success btn-pill">
+          <i data-lucide="check"></i>
+          <span>Aprobar Post</span>
+        </button>
+        <button id="openRejectBtn" class="btn btn-outline-danger btn-pill">
+          <i data-lucide="x"></i>
+          <span>Rechazar Post</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GESTIÓN DE CLIENTES, METAS, USUARIOS Y ASIGNACIONES -->
+  <div id="manageModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <h3 class="modal-title">Administración y Roles</h3>
+        <button type="button" class="modal-close" data-close="manageModal"><i data-lucide="x"></i></button>
+      </div>
+      <div class="manage-tabs">
+        <button class="tab-btn active" data-tab="clientsTab">
+          <i data-lucide="briefcase"></i> Clientes & Metas
+        </button>
+        <button class="tab-btn" data-tab="usersTab">
+          <i data-lucide="user-plus"></i> Crear Usuarios
+        </button>
+        <button class="tab-btn" data-tab="assignmentsTab">
+          <i data-lucide="clipboard-check"></i> Asignar Tareas
+        </button>
+      </div>
+
+      <!-- TAB 1: CLIENTES -->
+      <div id="clientsTab" class="tab-pane active">
+        <form id="newClientForm" class="mini-form">
+          <h4>Crear Nuevo Cliente</h4>
+          <div class="form-row">
+            <input type="text" id="newClientName" class="form-input" placeholder="Nombre de la marca o cliente" required>
+            <input type="number" id="newClientTarget" class="form-input" placeholder="Meta mensual de posts (ej. 15)" min="1" required>
+            <button type="submit" class="btn btn-primary"><i data-lucide="plus"></i> Crear Cliente</button>
+          </div>
+        </form>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Meta Mensual</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 2: USUARIOS -->
+      <div id="usersTab" class="tab-pane">
+        <form id="newUserForm" class="mini-form">
+          <h4>Crear Nuevo Usuario</h4>
+          <div class="form-row-3">
+            <input type="text" id="newUserName" class="form-input" placeholder="Nombre completo" required>
+            <input type="text" id="newUserUsername" class="form-input" placeholder="Usuario de acceso" required>
+            <input type="password" id="newUserPassword" class="form-input" placeholder="Contraseña" required>
+          </div>
+          <div class="form-row-2">
+            <select id="newUserRole" class="form-input" required>
+              <option value="superadmin">Superusuario (Control Total)</option>
+              <option value="operator">Operario (Creación y Asignación)</option>
+              <option value="client">Cliente (Aprobación de su calendario)</option>
+            </select>
+            <select id="newUserClientSelect" class="form-input">
+              <option value="">Sin cliente asignado (para admin/operario)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary"><i data-lucide="user-plus"></i> Guardar Usuario</button>
+        </form>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Nivel / Rol</th>
+                <th>Cliente Asignado</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 3: ASIGNACIÓN DE TAREAS Y CLIENTES A OPERARIOS -->
+      <div id="assignmentsTab" class="tab-pane">
+        <div class="mini-form">
+          <h4>Asignaciones de Trabajo</h4>
+          <p class="form-hint" style="margin-bottom: 12px;">Aquí puedes ver qué clientes y operarios están configurados en el sistema para colaborar.</p>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Operario / Usuario</th>
+                  <th>Rol</th>
+                  <th>Asignación Actual</th>
+                </tr>
+              </thead>
+              <tbody id="assignmentsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
