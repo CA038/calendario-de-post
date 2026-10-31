@@ -5,7 +5,7 @@
 ---
 
 ## 1. Resumen General
-Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel** bajo el estándar oficial de Vercel Express.
+Sistema de gestión y aprobación de publicaciones para redes sociales con roles diferenciados, conectado a **Google Sheets en tiempo real** (mediante Google Apps Script Web App), diseño dashboard con **menú lateral (sidebar)**, respaldado en **GitHub** y desplegado en **Vercel** bajo el estándar moderno **Zero Config**.
 
 ---
 
@@ -13,8 +13,7 @@ Sistema de gestión y aprobación de publicaciones para redes sociales con roles
 - **GitHub:** [https://github.com/CA038/calendario-de-post](https://github.com/CA038/calendario-de-post)
 - **Vercel URL:** [https://calendario-de-post.vercel.app](https://calendario-de-post.vercel.app)
 - **Rama principal:** `main`
-- **Rutas Estáticas:** Servidas directamente desde CDN de Vercel (`index.html`, `css/`, `js/`).
-- **Rutas API:** Despachadas a `index.js` mediante `@vercel/node`.
+- **Despliegue:** Vercel Zero Config (archivos estáticos nativos en raíz y funciones serverless nativas en `api/`).
 - **Autenticación Git:** Clave SSH segura (`ed25519`) activa.
 
 ---
@@ -40,7 +39,7 @@ Sistema de gestión y aprobación de publicaciones para redes sociales con roles
 ---
 
 ## 4. Estado Actual y Verificación
-- [x] Arquitectura oficial Vercel configurada (`index.js` + `builds` + `routes` en `vercel.json`).
+- [x] Migración a Vercel Zero Config (`api/index.js` y `api/[...path].js`).
 - [x] Despliegue automático en Vercel tras cada `git push`.
 - [x] Conexión en vivo con Google Sheets verificada (`Posts`, `Users`, `Clients`, `Settings`).
 - [x] Todos los archivos cumplen la regla de límite (< 1,000 líneas).
