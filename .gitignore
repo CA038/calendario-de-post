@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+*.log
+npm-debug.log*
+.env
+.env.local
+.env.*.local
+
+# .NET / Backend
+backend/**/bin/
+backend/**/obj/
+*.user
+*.suo
+
+# Local SQLite databases & backups
+*.db
+*.db.backup
+*.db-shm
+*.db-wal
+backups/
+
